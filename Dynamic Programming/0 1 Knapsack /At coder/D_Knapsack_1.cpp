@@ -32,5 +32,10 @@ signed main()
     cout << siam[n][w] << endl;
     return 0;
 }
+
+/*
+  Md. Siam Ahmed
+  CSE, Khulna University
+*/
 //time complexity O(n*w)
 
