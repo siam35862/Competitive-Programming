@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "egg_drop_optimized_v2": "cpp"
+    },
+    "files.exclude": {
+        "**/*.exe": true
+    }
+}
