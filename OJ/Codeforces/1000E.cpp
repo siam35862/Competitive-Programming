@@ -40,6 +40,35 @@ void dfs(int u, int *visited, vector<vector<int>> &graph, int *component, int cn
         }
     }
 }
+pair<int,int> bfs(int u,vector<vector<int>>&graph)
+{
+    int n=graph.size();
+    vector<int>distance(n+1,-1);
+    queue<int>q;
+    q.push(u);
+    distance[u]=0;
+    int mx=0;
+    int ind=-1;
+    while(!q.empty())
+    {
+        u=q.front();
+        q.pop();
+        for(auto v:graph[u])
+        {
+            if(distance[v]==-1)
+            {
+                q.push(v);
+                distance[v]=distance[u]+1;
+                if(distance[v]>mx)
+                {
+                    mx=distance[v];
+                    ind=v;
+                }
+            }
+        }
+    }
+    return {ind,mx};
+}
 void dfs(int u, int *visited, vector<vector<int>> &graph)
 {
     if (visited[u])
@@ -100,32 +129,21 @@ int32_t main()
         tree[components[v]].push_back(components[u]);
     }
 
-    int visited2[cn + 1] = {};
-    cout<<"bridge tree\n";
-    dfs(1, visited2, tree);
-    cout << endl;
+    auto p=bfs(1,tree);
+    if(p.first!=-1)
+    p=bfs(p.first,tree);
+   
 
-    
+    cout<<p.second<<endl;
 }
 
 /*
-13 17
-0 1
-1 4
-1 5
-5 13
-4 13
-4 2
-2 12
-12 10
-12 11
-10 11
+5 5
+1 2
 2 3
-3 6
-2 6
-6 8
-8 7
-7 9
-9 8
+3 1
+4 1
+5 2
+
 
 */
