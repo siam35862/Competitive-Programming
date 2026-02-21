@@ -32,61 +32,31 @@ void find_bridges(int u, int p, int &timer, int *visited, vector<vector<int>> &g
         }
     }
 }
-void dfs(int u, int *visited, vector<vector<int>> &graph, int *component, int cn, map<pair<int, int>, int> &mp)
+void dfs(int u, int dest, int cnt, int *visited, vector<vector<int>> &graph, map<pair<int, int>, int> &mp)
 {
     if (visited[u])
         return;
     visited[u] = 1;
-    component[u] = cn;
+    if (u == dest)
+    {
+        cout << cnt << endl;
+        return;
+    }
+
     for (auto v : graph[u])
     {
         if (mp[{u, v}] == 0)
         {
-            dfs(v, visited, graph, component, cn, mp);
+            dfs(v, dest, cnt, visited, graph, mp);
         }
+        else
+            dfs(v, dest, cnt + 1, visited, graph, mp);
     }
 }
-pair<int, int> bfs(int u, vector<vector<int>> &graph)
-{
-    int n = graph.size();
-    vector<int> distance(n + 1, -1);
-    queue<int> q;
-    q.push(u);
-    distance[u] = 0;
-    int mx = 0;
-    int ind = -1;
-    while (!q.empty())
-    {
-        u = q.front();
-        q.pop();
-        for (auto v : graph[u])
-        {
-            if (distance[v] == -1)
-            {
-                q.push(v);
-                distance[v] = distance[u] + 1;
-                if (distance[v] > mx)
-                {
-                    mx = distance[v];
-                    ind = v;
-                }
-            }
-        }
-    }
-    return {ind, mx};
-}
-void dfs(int u, int *visited, vector<vector<int>> &graph)
-{
-    if (visited[u])
-        return;
-    visited[u] = 1;
-    // cout<<u<<" ";
-    for (auto v : graph[u])
-        if (!visited[v])
-            cout << u << " " << v << endl, dfs(v, visited, graph);
-}
+
 int32_t main()
 {
+
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
@@ -96,11 +66,15 @@ int32_t main()
 
     vector<vector<int>> graph(n + 1);
     int i;
+
+    int a[n + 1], b[n + 1];
     for (i = 0; i < m; i++)
     {
         int u, v;
         cin >> u >> v;
-
+        a[i + 1] = u;
+        b[i + 1] = v;
+       
         graph[u].push_back(v);
         graph[v].push_back(u);
     }
@@ -119,40 +93,19 @@ int32_t main()
     map<pair<int, int>, int> mp;
     for (auto it : bridge_edges)
         mp[it] = 1;
-    int visited3[n + 1] = {};
-
-    for (i = 1; i <= n; i++)
+    int q;
+    cin>>q;
+    while(q--)
     {
-        int u = i;
-        if (!visited3[u])
-        {
-            cn++;
-            dfs(u, visited3, graph, components, cn, mp);
-        }
+        int p;
+        cin>>p;
+        if(mp[{a[p],b[p]}])cout<<"Unhappy\n";
+        else cout<<"Happy\n";
     }
-    vector<vector<int>> tree(n + 1);
-    vector<vector<int>> vertices(n + 1);
-    for (auto it : bridge_edges)
-    {
-        int u = it.first, v = it.second;
-        tree[components[u]].push_back(components[v]);
-        tree[components[v]].push_back(components[u]);
-    }
-
-    auto p = bfs(1, tree);
-    if (p.first != -1)
-        p = bfs(p.first, tree);
-
-    cout << p.second << endl;
 }
 
 /*
-5 5
-1 2
-2 3
-3 1
-4 1
-5 2
+
 
 
 */
