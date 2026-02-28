@@ -4,7 +4,7 @@ using namespace std;
 
 #define int long long
 
-void dfs(int u, int *visited, vector<int> &outtime, vector<vector<int>> &graph)
+void dfs(int u, vector<int>&visited, vector<int> &outtime, vector<vector<int>> &graph)
 {
     if (visited[u])
         return;
@@ -15,7 +15,7 @@ void dfs(int u, int *visited, vector<int> &outtime, vector<vector<int>> &graph)
     outtime.push_back(u);
 }
 
-void dfs(int u, int cn, int *visited, int *component_no, vector<vector<int>> &components, vector<vector<int>> &graph)
+void dfs(int u, int cn, vector<int>&visited, vector<int> &component_no, vector<vector<int>> &components, vector<vector<int>> &graph)
 {
     if (visited[u])
         return;
@@ -26,7 +26,7 @@ void dfs(int u, int cn, int *visited, int *component_no, vector<vector<int>> &co
     for (auto v : graph[u])
         dfs(v, cn, visited, component_no, components, graph);
 }
-void dfs(int u,int *visited,vector<vector<int>>&graph)
+void dfs(int u,vector<int>&visited,vector<vector<int>>&graph)
 {
     if(visited[u])return;
     visited[u]=1;
@@ -49,14 +49,14 @@ int32_t main()
     }
 
     vector<int> outtime;
-    int visited[n + 1] = {};
+    vector<int>visited(n+1,0);
     for (i = 1; i <=n; i++)
         dfs(i, visited, outtime, graph1);
     reverse(outtime.begin(), outtime.end());
-    int component_no[n + 1] = {};
+    vector<int>component_no(n+1);
     vector<vector<int>> components(n + 1);
     int cn = 0;
-    int visited2[n + 1] = {};
+    vector<int>visited2(n+1,0);
 
     for (auto u : outtime)
         if (!visited2[u])
@@ -73,7 +73,7 @@ int32_t main()
             agraph[component_no[u]].push_back(component_no[v]);
     }
 
-    int visited3[cn+1]={};
+    vector<int>visited3(n+1,0);
 
     for(int i=1;i<=cn;i++)
     {
