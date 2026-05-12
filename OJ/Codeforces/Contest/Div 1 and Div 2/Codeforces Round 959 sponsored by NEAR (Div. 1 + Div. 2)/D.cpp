@@ -61,6 +61,7 @@ int32_t main()
         // cout << "Case " << cs << ": ";
         int n, m, i, j, k;
         cin >> n;
+        m = n - 1;
         int a[n + 1];
         int marked[n + 1] = {};
         for (i = 0; i < n; i++)
@@ -68,43 +69,31 @@ int32_t main()
             cin >> a[i];
         }
         vector<pair<int, int>> ans;
-
-        int x = n - 1;
-        int flag = 0;
-        for (i = 0; i < n; i++)
+        for (int x = m; x>=1; x--)
         {
-            for (j = i + 1; j < n; j++)
-            {
-                if (a[i] % x == a[j] % x)
-                {
-                    ans.push_back({i, j});
-                    marked[i] = marked[j] = 1;
-                    flag = 1;
-                    break;
-                }
-            }
-            if (flag)
-                break;
-        }
-        while (--x > 0)
-        {
-           
-            int ind = ans.back().first;
-            int val = a[ind];
+            map<int, int> mp;
             for (i = 0; i < n; i++)
             {
-                if (val % x == a[i] % x && marked[i] == 0)
+                if (marked[i] == 0)
                 {
-                    marked[i] = 1;
-                    ans.push_back({ind, i});
-                    break;
+                    if (mp.find(a[i] % x) == mp.end())
+                        mp[a[i] % x] = i;
+                    else
+                    {
+                        ans.push_back({i,mp[a[i]%x]});
+                        marked[i]=1;
+                        break;
+                    }
                 }
             }
         }
+
         rev(ans);
         cout << "YES\n";
         for (auto it : ans)
+        {
             cout << it.first + 1 << " " << it.second + 1 << endl;
+        }
     }
 
     return 0;
