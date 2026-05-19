@@ -66,7 +66,7 @@ int f(int *a, int ind)
     return a[ind];
 }
 
-int ternary_search(int *a, int l, int r)
+int ternary_search_maximum(int *a, int l, int r)
 {
     if (l == r)
         return l;
@@ -101,24 +101,15 @@ int ternary_search(int *a, int l, int r)
                 r = m1;
         }
     }
-    if (l == r)
-        return l;
-    else if (l + 1 == r)
+    int max_ind = l;
+    for (int i = l + 1; i <= r; i++)
     {
-        if (f(a, l) > f(a, r))
-            return l;
-        else
-            return r;
-    }
-    else
-    {
-        for (int i = l + 1; i < r; i++)
+        if (f(a, i) > f(a, max_ind))
         {
-            if (f(a, i) >= f(a, i - 1) && f(a, i) >= f(a, i + 1))
-                return i;
+            max_ind = i;
         }
     }
-    return -1;
+    return max_ind;
 }
 
 int32_t main()
@@ -145,8 +136,8 @@ int32_t main()
         cin >> l >> r;
         l--;
         r--;
-        int ind=ternary_search(a,l,r);
-        cout<<a[ind]<<endl;
+        int ind = ternary_search_maximum(a, l, r);
+        cout << a[ind] << endl;
     }
 
     return 0;
