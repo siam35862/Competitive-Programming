@@ -101,15 +101,15 @@ int ternary_search_minimum(int *a, int l, int r)
                 r = m1;
         }
     }
-    int max_ind = l;
+    int min_ind = l;
     for (int i = l + 1; i <= r; i++)
     {
-        if (f(a, i) < f(a, max_ind))
+        if (f(a, i) < f(a, min_ind))
         {
-            max_ind = i;
+            min_ind = i;
         }
     }
-    return max_ind;
+    return min_ind;
 }
 
 int32_t main()
