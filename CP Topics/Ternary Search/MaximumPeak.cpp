@@ -10,14 +10,26 @@ using namespace std;
 #define srt(v) sort(v.begin(), v.end())
 #define rsrt(v) sort(v.rbegin(), v.rend())
 #define rev(v) reverse(v.begin(), v.end())
-#define input(v) for(auto &it:v)cin>>it
-#define inputa(a,n,ind) for(i=0;i<n;i++)cin>>a[i+ind]
-#define output(v) for(auto &it:v)cout<<it<<" "
-#define outputa(a,n,ind) for(i=0;i<n;i++)cout<<a[i+ind]<<" "
-#define outputl(v) for(auto &it:v)cout<<it<<'\n'
-#define outputal(a,n,ind) for(i=0;i<n;i++)cout<<a[i+ind]<<'\n'
+#define input(v)       \
+    for (auto &it : v) \
+    cin >> it
+#define inputa(a, n, ind)   \
+    for (i = 0; i < n; i++) \
+    cin >> a[i + ind]
+#define output(v)      \
+    for (auto &it : v) \
+    cout << it << " "
+#define outputa(a, n, ind)  \
+    for (i = 0; i < n; i++) \
+    cout << a[i + ind] << " "
+#define outputl(v)     \
+    for (auto &it : v) \
+    cout << it << '\n'
+#define outputal(a, n, ind) \
+    for (i = 0; i < n; i++) \
+    cout << a[i + ind] << '\n'
 
-#define maxn (int)(2e5+100)
+#define maxn (int)(2e5 + 100)
 #define M 998244353
 
 template <class T>
@@ -36,16 +48,106 @@ using ordered_set =
 template <class T>
 using ordered_setd = tree<T, null_type, greater<T>, rb_tree_tag,
                           tree_order_statistics_node_update>;
+/*
+T test cases:
+In each test case, you have an array which strictly increases first, then strictly decreases.
+Now, find the maximum value in interval l to r inclusive.
+2
+5
+10 12 15 13 9
+2 5
+8
+10 20 19 18 17 16 15 14
+2 8
+*/
+
+int f(int *a, int ind)
+{
+    return a[ind];
+}
+
+int ternary_search(int *a, int l, int r)
+{
+    if (l == r)
+        return l;
+    else if (f(a, r) > f(a, r - 1))
+        return r;
+    else if (f(a, l) > f(a, l + 1))
+        return l;
+    while ((r - l) > 3)
+    {
+        int m1 = l + (r - l) / 3;
+        int m2 = r - (r - l) / 3;
+
+        if (f(a, m1) < f(a, m2))
+        {
+            l = m1;
+            if (f(a, m2) < f(a, m2 + 1))
+                l = m2;
+            else
+                r = m2;
+        }
+        else if (f(a, m1) == f(a, m2))
+        {
+            l = m1;
+            r = m2;
+        }
+        else
+        {
+            r = m2;
+            if (f(a, m1) < f(a, m1 + 1))
+                l = m1;
+            else
+                r = m1;
+        }
+    }
+    if (l == r)
+        return l;
+    else if (l + 1 == r)
+    {
+        if (f(a, l) > f(a, r))
+            return l;
+        else
+            return r;
+    }
+    else
+    {
+        for (int i = l + 1; i < r; i++)
+        {
+            if (f(a, i) >= f(a, i - 1) && f(a, i) >= f(a, i + 1))
+                return i;
+        }
+    }
+    return -1;
+}
 
 int32_t main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    int n;
-    cin>>n;
-    cout<<n*n<<endl;
 
-    
+    int t = 1;
+    cin >> t;
+    for (int cs = 1; cs <= t; cs++)
+    {
+        // cout << "Case " << cs << ": ";
+        int n, m, i, j, k;
+
+        cin >> n;
+        int a[n + 1];
+
+        for (i = 0; i < n; i++)
+        {
+            cin >> a[i];
+        }
+        int l, r;
+        cin >> l >> r;
+        l--;
+        r--;
+        int ind=ternary_search(a,l,r);
+        cout<<a[ind]<<endl;
+    }
+
     return 0;
 }
