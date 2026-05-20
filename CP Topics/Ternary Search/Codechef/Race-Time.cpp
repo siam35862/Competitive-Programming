@@ -66,10 +66,9 @@ double f(int *s, int *d,int n, double t)
 }
 double ternary_search_minimum(int *s,int *d,int n, double l, double r)
 {
-    if (l == r)
-        return l;
     
-    while ((r - l) > 1e-7)
+    
+    while ((r - l) > 1e-8)
     {
         double m1 = l + (r - l) / 3;
         double m2 = r - (r - l) / 3;
@@ -78,11 +77,6 @@ double ternary_search_minimum(int *s,int *d,int n, double l, double r)
         {
             l = m1;
            
-        }
-        else if (f(s,d,n, m1) == f(s,d,n, m2))
-        {
-            l = m1;
-            r = m2;
         }
         else
         {
