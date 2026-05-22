@@ -55,7 +55,7 @@ double f(double *time, double *velocity,int n,double x)
 
 double ternary_search_minimum_doubles(double *time, double *velocity,int n,double l, double r)
 {
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 50; i++)
     {
         double m1 = l + (r - l) / 3.0;
         double m2 = r - (r - l) / 3.0;
