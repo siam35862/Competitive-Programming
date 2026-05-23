@@ -36,7 +36,7 @@ using ordered_set =
 template <class T>
 using ordered_setd = tree<T, null_type, greater<T>, rb_tree_tag,
                           tree_order_statistics_node_update>;
-double f(double *time, double *velocity,int n,double x)
+double f(int *time, int *velocity,int n,double x)
 {
     double val = 0;
     double mn=INT64_MAX;
@@ -53,9 +53,9 @@ double f(double *time, double *velocity,int n,double x)
     return val;
 }
 
-double ternary_search_minimum_doubles(double *time, double *velocity,int n,double l, double r)
+double ternary_search_minimum_doubles(int *time, int *velocity,int n,double l, double r)
 {
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < 100; i++)
     {
         double m1 = l + (r - l) / 3.0;
         double m2 = r - (r - l) / 3.0;
@@ -80,15 +80,15 @@ int32_t main()
         int n, m, i, j, k;
         cin>>n;
         if(n==0)break;
-        double time[n],velocity[n];
-        double tt=0;
+        int time[n],velocity[n];
+        int tt=0;
         for (i = 0; i < n; i++)
         {
             cin>>time[i]>>velocity[i];
             tt=max(tt,time[i]);
         }
 
-        double time_=ternary_search_minimum_doubles(time,velocity,n,tt,tt+1e6);
+        double time_=ternary_search_minimum_doubles(time,velocity,n,tt,tt+1e10);
         double ans=f(time,velocity,n,time_);
         cout<<fixed<<setprecision(6)<<ans<<endl;
 
