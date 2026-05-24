@@ -82,48 +82,16 @@ int f(int *a, int n, int p, int q, int r, int h)
 
 int ternary_search_minimum(int *a, int n, int p, int q, int rr, int l, int r)
 {
-    if (l == r)
-        return l;
-    else if (f(a, n, p, q, rr, r) < f(a, n, p, q, rr, r - 1))
-        return r;
-    else if (f(a, n, p, q, rr, l) < f(a, n, p, q, rr, l + 1))
-        return l;
-    while ((r - l) > 3)
+    while (l < r)
     {
-        int m1 = l + (r - l) / 3;
-        int m2 = r - (r - l) / 3;
-
+        int m1 = (l + r) / 2;
+        int m2 = m1 + 1;
         if (f(a, n, p, q, rr, m1) > f(a, n, p, q, rr, m2))
-        {
-            l = m1;
-            if (f(a, n, p, q, rr, m2) > f(a, n, p, q, rr, m2 + 1))
-                l = m2;
-            else
-                r = m2;
-        }
-        else if (f(a, n, p, q, rr, m1) == f(a, n, p, q, rr, m2))
-        {
-            l = m1;
-            r = m2;
-        }
+            l = m2;
         else
-        {
-            r = m2;
-            if (f(a, n, p, q, rr, m1) > f(a, n, p, q, rr, m1 + 1))
-                l = m1;
-            else
-                r = m1;
-        }
+            r = m1;
     }
-    int min_ind = l;
-    for (int i = l + 1; i <= r; i++)
-    {
-        if (f(a, n, p, q, rr, i) < f(a, n, p, q, rr, min_ind))
-        {
-            min_ind = i;
-        }
-    }
-    return min_ind;
+    return l;
 }
 
 int32_t main()
@@ -145,8 +113,8 @@ int32_t main()
     }
 
     int x = ternary_search_minimum(a, n, p, q, r, l, rr);
-    int ans=f(a,n,p,q,r,x);
-    cout<<ans<<endl;
+    int ans = f(a, n, p, q, r, x);
+    cout << ans << endl;
 
     return 0;
 }
