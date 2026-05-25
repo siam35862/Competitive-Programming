@@ -80,7 +80,7 @@ int32_t main()
     //     }
     //     for (j = 0; j <= i + 1; j++)
     //     {
-    //         dp[j] = dp_new[j];
+    //         dp[j] = p_new[j];
     //         dp_new[j] = 0;
     //     }
     // }
