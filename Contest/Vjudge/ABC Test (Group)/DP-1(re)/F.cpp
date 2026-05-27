@@ -39,7 +39,7 @@ using ordered_setd = tree<T, null_type, greater<T>, rb_tree_tag,
 
 pair<int,int> dp[405][405];
 
-pair<int,int> minimumDp(int *a,int i,int j,int &ans)
+pair<int,int> minimumDp(int *a,int i,int j)
 {
     if(i>j)return {0,0};
     if(i==j)return {a[i],0};
@@ -51,8 +51,8 @@ pair<int,int> minimumDp(int *a,int i,int j,int &ans)
 
     for(int k=i;k<j;k++)
     {
-        auto p1=minimumDp(a,i,k,ans);
-        auto p2=minimumDp(a,k+1,j,ans);
+        auto p1=minimumDp(a,i,k);
+        auto p2=minimumDp(a,k+1,j);
         if(p1.first+p2.first+p1.second+p2.second<p.second)
         {
             mn=p1.first+p2.first;
@@ -76,8 +76,8 @@ int32_t main()
 
     int a[n];
     inputa(a,n,0);
-    int ans=0;
-    auto p=minimumDp(a,0,n-1,ans);
+   
+    auto p=minimumDp(a,0,n-1);
     cout<<p.second<<endl;
 
     
