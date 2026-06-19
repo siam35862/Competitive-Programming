@@ -48,78 +48,49 @@ using ordered_set =
 template <class T>
 using ordered_setd = tree<T, null_type, greater<T>, rb_tree_tag,
                           tree_order_statistics_node_update>;
-vector<double>ans(1001,0);
-vector<int>cnt(1001,0);
 
-void calculates_probability(vector<int>&v,vector<int>players,vector<int>new_players,vector<double>prob,vector<double>prob_new)
-{
-    
-    if(new_players.size()==players.size()/2)
-    {
-        //cout<<new_players.size()<<" "<<players.size();
-        players.clear();
-        prob.clear();
-        for(auto it:new_players)players.push_back(it);
-        for(auto it:prob_new)prob.push_back(it);
-        new_players.clear();
-        prob_new.clear();
-        //cout<<"     "<<new_players.size()<<" "<<players.size()<<endl;
-    }
-    if(players.size()==1)
-    {
-        //cout<<players[0]<<" "<<ans[players[0]]<<" "<<prob[0]<<endl;
-        ans[players[0]]+=prob[0];
-        cnt[players[0]]++;
-        
-        return;
-    }
-
-    double x,y;
-    int len=new_players.size();
-    len*=2;
-    int p=players[len];
-    int q=players[len+1];
-    x=1.0/(1.0+pow(10,(v[q]-v[p])/400.0));
-    y=1.0/(1.0+pow(10,(v[p]-v[q])/400.0));
-    x*=prob[len];
-    y*=prob[len+1];
-    new_players.push_back(p);
-    prob_new.push_back(x);
-    calculates_probability(v,players,new_players,prob,prob_new);
-    new_players.pop_back();
-    prob_new.pop_back();
-    new_players.push_back(q);
-    prob_new.push_back(y);
-    calculates_probability(v,players,new_players,prob,prob_new);
-}
 int32_t main()
 {
   
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-
+    cout<<fixed<<setprecision(10);
     int k;
     cin >> k;
     int n = (1 << k);
-    vector<int> v(n + 1);
-    int i, j;
-    inputa(v, n, 1);
-    vector<int> players(n);
-    for (i = 1; i <= n; i++)
-        players[i - 1] = i;
-    vector<int>new_players;
-    vector<double>probability_players(n,1);
-    vector<double>prob_new_players;
-
-    calculates_probability(v,players,new_players,probability_players,prob_new_players);
-    cout<<fixed<<setprecision(10);
-    cout<<cnt[1]<<endl;
-    int K=1<<k;
-    for (i = 1; i <= n; i++)
+    double dp[k+1][n]={};
+    int i,j;
+    int a[n];
+    for (i = 0; i < n; i++)
     {
-        cout<<ans[i]/cnt[i]<<endl;
+        cin>>a[i];
+        dp[0][i]=1;
     }
+
+    for(i=1;i<=k;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            double value=0;
+            for(int kk=0;kk<n;kk++)
+            {
+                if((j>>i)==(kk>>i)&&(j>>(i-1)!=(kk>>(i-1))))
+                {
+                    value+=dp[i-1][kk]*(1.0/(1.0+pow(10,(a[kk]-a[j])/400.0)));
+                   
+                }
+            }
+           
+            dp[i][j]=dp[i-1][j]*value;
+        }
+    }
+    
+    for(i=0;i<n;i++)
+    {
+        cout<<dp[k][i]<<"\n";
+    }
+    
 
 
     return 0;
