@@ -53,27 +53,24 @@ using ordered_setd = tree<T, null_type, greater<T>, rb_tree_tag,
 void shortest_path(int src, vector<vector<pair<int, int>>> &graph, int *ans)
 {
     ans[src] = 0;
-
-    set<pair<int, pair<int, int>>> st;
-    for (auto it : graph[src])
+    int visited[graph.size()]={};
+    set<pair<int,int>> st;
+    st.insert({0,1});
+    while (st.size())
     {
-        int v = it.first, w = it.second;
-        st.insert({w, {src, v}});
-        
-    }
-
-    while(st.size())
-    {
-        auto it=*st.begin();
+        auto it = *st.begin();
         st.erase(st.begin());
-        int u=it.second.first,v=it.second.second,w=it.first;
-        if(ans[u]+w<ans[v])
-        {
-            ans[v]=ans[u]+w;
+        int u = it.second,  w = it.first;
+        if (visited[u]) continue;
+        visited[u] = true;
+       
 
-            for(auto dest:graph[v])
+        for(auto dest:graph[u])
+        {
+            if(w+dest.second<ans[dest.first])
             {
-                st.insert({dest.second,{v,dest.first}});
+                ans[dest.first]=w+dest.second;
+                st.insert({ans[dest.first],dest.first});
             }
         }
     }
@@ -98,7 +95,6 @@ int32_t main()
     }
     int x[n];
     graph[n + 1].push_back({n + 2, y});
-
     for (i = 0; i < n; i++)
     {
         cin >> x[i];
@@ -108,9 +104,10 @@ int32_t main()
     int ans[n + 3];
     for (i = 0; i <= n + 2; i++)
         ans[i] = inf;
-    shortest_path(1,graph,ans);
-    for(i=2;i<=n;i++)cout<<ans[i]<<" ";
-    cout<<endl;
+    shortest_path(1, graph, ans);
+    for (i = 2; i <= n; i++)
+        cout << ans[i] << " ";
+    cout << endl;
 
     return 0;
 }
