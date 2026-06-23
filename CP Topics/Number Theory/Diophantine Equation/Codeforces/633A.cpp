@@ -34,8 +34,9 @@ bool has_positive_solution(int a, int b, int c) {
 
     int k = (x_min - x0) / step_x;
     int y_max = y0 - k * step_y;
+    
 
-    return (y_max > 0);
+    return (y_max >= 0);
 }
 
 int32_t main() {
