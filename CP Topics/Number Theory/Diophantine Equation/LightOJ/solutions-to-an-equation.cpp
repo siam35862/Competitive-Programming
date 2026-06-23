@@ -49,7 +49,7 @@ using ordered_set =
 template <class T>
 using ordered_setd = tree<T, null_type, greater<T>, rb_tree_tag,
                           tree_order_statistics_node_update>;
-int gcd(int a, int b, int &x, int &y)
+int extgcd(int a, int b, int &x, int &y)
 {
     if (b == 0)
     {
@@ -58,7 +58,7 @@ int gcd(int a, int b, int &x, int &y)
         return a;
     }
     int x1, y1;
-    int g = gcd(b, a % b, x1, y1);
+    int g = extgcd(b, a % b, x1, y1);
     x = y1;
     y = x1 - y1 * (a / b);
     return g;
@@ -66,7 +66,7 @@ int gcd(int a, int b, int &x, int &y)
 
 bool find_any_solutions(int a, int b, int c, int &x, int &y, int &g)
 {
-    g = gcd(abs(a), abs(b), x, y);
+    g = extgcd(abs(a), abs(b), x, y);
     if (c % g)
         return false;
     x *= c / g;
