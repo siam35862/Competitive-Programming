@@ -28,7 +28,7 @@ bool has_positive_solution(int a, int b, int c) {
     int step_y = a / g;
 
     int x_min = x0 % step_x;
-    if (x_min <= 0) {
+    if (x_min < 0) {
         x_min += step_x;
     }
 
