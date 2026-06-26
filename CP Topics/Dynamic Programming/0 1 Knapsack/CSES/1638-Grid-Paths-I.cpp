@@ -78,6 +78,7 @@ int32_t main()
                 if (j > 0)
                     dp[i][j] += dp[i][j - 1];
             }
+            dp[i][j]%=M;
         }
     }
     cout<<dp[n-1][n-1]<<endl;
