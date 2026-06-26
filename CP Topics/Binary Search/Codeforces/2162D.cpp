@@ -65,48 +65,35 @@ int32_t main()
 
         cin >> n;
 
-        cout << "1 1 1" << endl;
-        int sum1, sum2;
-        cin >> sum1;
-        cout << "2 1 1" << endl;
-        cin >> sum2;
-        if (sum1 != sum2)
+        int l = 1, r = n, ans;
+        int sum1 = 0, sum2 = 0;
+        while (l <= r)
         {
-            cout << 1 << " 1 " << n << endl;
+            int m = (l + r) / 2;
+
+            cout << 1 << " 1 " << m << endl;
             cin >> sum1;
-            cout << 2 << " 1 " << n << endl;
+            cout << "2 1 " << m << endl;
             cin >> sum2;
-            cout << "! 1 " << sum2 - sum1 << endl;
-        }
-        else
-        {
-            int l=1, r=n, ans;
-
-            while (l <= r)
+            if (sum1 == sum2)
             {
-                int m = (l + r) / 2;
 
-                cout << 1 << " 1 " << m << endl;
-                cin >> sum1;
-                cout<<"2 1 "<<m<<endl;
-                cin>>sum2;
-                if(sum1==sum2)
-                {
-                    ans=m;
-                    l=m+1;
-                    
-                }
-                else r=m-1;
+                l = m + 1;
             }
-
-            l=ans+1;
-            cout<<1<<" "<<l<<" "<<n<<endl;
-            cin>>sum1;
-            cout<<2<<" "<<l<<" "<<n<<endl;
-            cin>>sum2;
-
-            cout<<"! "<<l<<" "<<l+sum2-sum1-1<<endl;
+            else
+            {
+                ans = m;
+                r = m - 1;
+            }
         }
+
+        l = ans;
+        cout << 1 << " " << l << " " << n << endl;
+        cin >> sum1;
+        cout << 2 << " " << l << " " << n << endl;
+        cin >> sum2;
+
+        cout << "! " << l << " " << l + sum2 - sum1 - 1 << endl;
     }
 
     return 0;
