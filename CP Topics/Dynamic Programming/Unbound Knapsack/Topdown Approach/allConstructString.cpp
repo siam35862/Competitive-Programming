@@ -1,0 +1,154 @@
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+
+using namespace __gnu_pbds;
+using namespace std;
+
+#define int long long
+#define endl '\n'
+#define srt(v) sort(v.begin(), v.end())
+#define rsrt(v) sort(v.rbegin(), v.rend())
+#define rev(v) reverse(v.begin(), v.end())
+#define input(v)       \
+    for (auto &it : v) \
+    cin >> it
+#define inputa(a, n, ind)   \
+    for (i = 0; i < n; i++) \
+    cin >> a[i + ind]
+#define output(v)      \
+    for (auto &it : v) \
+    cout << it << " "
+#define outputa(a, n, ind)  \
+    for (i = 0; i < n; i++) \
+    cout << a[i + ind] << " "
+#define outputl(v)     \
+    for (auto &it : v) \
+    cout << it << '\n'
+#define outputal(a, n, ind) \
+    for (i = 0; i < n; i++) \
+    cout << a[i + ind] << '\n'
+
+#define maxn (int)(2e5 + 100)
+#define M 998244353
+#define inf 1e18
+
+template <class T>
+struct comparator
+{
+    bool operator()(const T &a, const T &b) const
+    {
+        return a < b;
+    }
+};
+
+template <class T>
+using ordered_set =
+    tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+template <class T>
+using ordered_setd = tree<T, null_type, greater<T>, rb_tree_tag,
+                          tree_order_statistics_node_update>;
+vector<int> dp;
+vector<vector<string>> ans;
+vector<vector<string>> temp;
+vector<vector<vector<string>>> dp_string(maxn);
+bool dp_can_construct_string(string &s, int j, vector<string> &wordbank)
+{
+    if (s.size() - j == 0)
+        return true;
+    if (dp[j] != -1)
+    {
+
+        temp = dp_string[j];
+
+        return dp[j];
+    }
+    bool result = false;
+    for (auto &str : wordbank)
+    {
+        if (str.size() <= s.size() - j)
+        {
+            int i = 0;
+            int flag = 1;
+            for (auto ch : str)
+            {
+                if (ch != s[j + i])
+                {
+                    flag = 0;
+                    break;
+                }
+                i++;
+            }
+            if (flag)
+            {
+                bool f = 0;
+
+                f = dp_can_construct_string(s, i + j, wordbank);
+                result = result or f;
+                if (f && i + j == s.size())
+                {
+                    temp.push_back({str});
+                    if (j == 0)
+                    {
+                        ans.push_back({str});
+                        temp.clear();
+                    }
+                }
+                else if (j != 0)
+                {
+                    for (auto &it : temp)
+                    {
+                        it.push_back(str);
+                    }
+                }
+                else
+                {
+                    for (auto &it : temp)
+                    {
+                        it.push_back(str);
+                        ans.push_back(it);
+                    }
+                    temp.clear();
+                }
+            }
+        }
+    }
+    dp_string[j] = temp;
+    return dp[j] = result;
+}
+int32_t main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    int n;
+    cin >> n;
+    string target;
+    vector<string> s(n);
+    cin >> target;
+    dp.resize(target.size() + 1, -1);
+    int i;
+    inputa(s, n, 0);
+    bool flag = dp_can_construct_string(target, 0, s);
+    if (flag)
+    {
+        cout << "YES\n";
+        cout << ans.size() << endl;
+        for (auto &it : ans)
+        {
+            rev(it);
+            for (auto &itt : it)
+            {
+                cout << itt << " ";
+            }
+            cout << endl;
+        }
+    }
+
+    else
+        cout << "NO\n";
+
+    return 0;
+}
