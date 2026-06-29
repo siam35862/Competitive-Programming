@@ -51,7 +51,7 @@ using ordered_setd = tree<T, null_type, greater<T>, rb_tree_tag,
                           tree_order_statistics_node_update>;
 vector<int>dp;
 
-int dp_can_construct_string(string &s,int j, vector<string> &wordbank)
+int dp_count_construct_string(string &s,int j, vector<string> &wordbank)
 {
     if (s.size()-j==0)
         return 1;
@@ -76,7 +76,7 @@ int dp_can_construct_string(string &s,int j, vector<string> &wordbank)
             if (flag)
             {
                 
-                result=result + dp_can_construct_string(s,i+j,wordbank);
+                result=result + dp_count_construct_string(s,i+j,wordbank);
             }
         }
     }
@@ -97,7 +97,7 @@ int32_t main()
     dp.resize(target.size()+1,-1);
     int i;
     inputa(s, n, 0);
-    int ans=dp_can_construct_string(target,0,s);
+    int ans=dp_count_construct_string(target,0,s);
     cout<<ans<<endl;
 
     return 0;
