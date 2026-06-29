@@ -10,14 +10,26 @@ using namespace std;
 #define srt(v) sort(v.begin(), v.end())
 #define rsrt(v) sort(v.rbegin(), v.rend())
 #define rev(v) reverse(v.begin(), v.end())
-#define input(v) for(auto &it:v)cin>>it
-#define inputa(a,n,ind) for(i=0;i<n;i++)cin>>a[i+ind]
-#define output(v) for(auto &it:v)cout<<it<<" "
-#define outputa(a,n,ind) for(i=0;i<n;i++)cout<<a[i+ind]<<" "
-#define outputl(v) for(auto &it:v)cout<<it<<'\n'
-#define outputal(a,n,ind) for(i=0;i<n;i++)cout<<a[i+ind]<<'\n'
+#define input(v)       \
+    for (auto &it : v) \
+    cin >> it
+#define inputa(a, n, ind)   \
+    for (i = 0; i < n; i++) \
+    cin >> a[i + ind]
+#define output(v)      \
+    for (auto &it : v) \
+    cout << it << " "
+#define outputa(a, n, ind)  \
+    for (i = 0; i < n; i++) \
+    cout << a[i + ind] << " "
+#define outputl(v)     \
+    for (auto &it : v) \
+    cout << it << '\n'
+#define outputal(a, n, ind) \
+    for (i = 0; i < n; i++) \
+    cout << a[i + ind] << '\n'
 
-#define maxn (int)(2e5+100)
+#define maxn (int)(2e5 + 100)
 #define M 998244353
 #define inf 1e18
 
@@ -37,21 +49,24 @@ using ordered_set =
 template <class T>
 using ordered_setd = tree<T, null_type, greater<T>, rb_tree_tag,
                           tree_order_statistics_node_update>;
-vector<int>dp(maxn+1,-1);
-vector<int>path(maxn+1,0);
-int  dp_target_sum(int sum,int *a,int n,bool &flag)
+vector<int> dp(maxn + 1, -1);
+vector<int> path(maxn + 1, 0);
+int dp_target_sum(int sum, int *a, int n, bool &flag)
 {
-    if(sum==0)flag=true;
-    if(dp[sum]!=-1)return dp[sum];
+    if (sum == 0)
+        flag = true;
+    if (dp[sum] != -1)
+        return dp[sum];
 
-    for(int i=0;i<n;i++)
+    for (int i = 0; i < n; i++)
     {
-        
-        if(sum-a[i]>=0)
+
+        if (sum - a[i] >= 0)
         {
-            if(!flag)
-            path[sum]=a[i];
-            dp[sum]=max(dp[sum],dp_target_sum(sum-a[i],a,n,flag));
+
+            dp[sum] = max(dp[sum], dp_target_sum(sum - a[i], a, n, flag));
+            if (dp[sum] == 1&&path[sum]==0)
+                path[sum] = a[i];
         }
     }
     return dp[sum];
@@ -61,32 +76,33 @@ int32_t main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    dp[0]=1;
+    dp[0] = 1;
     int n;
-    cin>>n;
+    cin >> n;
     int target;
-    cin>>target;
+    cin >> target;
     int a[n];
     int i;
-    for(i=0;i<n;i++)
+    for (i = 0; i < n; i++)
     {
-        cin>>a[i];
+        cin >> a[i];
     }
-    sort(a,a+n);
+    sort(a, a + n);
 
     bool flag;
-    if(dp_target_sum(target,a,n,flag=false)==1)
+    if (dp_target_sum(target, a, n, flag = false) == 1)
     {
-        cout<<"YES\n";
-        int sum=target;
-        while(path[sum]!=0)
+        cout << "YES\n";
+        int sum = target;
+        while (path[sum] != 0)
         {
-            cout<<path[sum]<<" ";
-            sum-=path[sum];
+            cout << path[sum] << " ";
+            sum -= path[sum];
         }
-        cout<<endl;
+        cout << endl;
     }
-    else cout<<"NO\n";
-    
+    else
+        cout << "NO\n";
+
     return 0;
 }
