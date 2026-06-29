@@ -57,15 +57,16 @@ int dp_target_sum(int sum, int *a, int n, bool &flag)
         flag = true;
     if (dp[sum] != -1)
         return dp[sum];
-
+    int result=0;
     for (int i = 0; i < n; i++)
     {
 
         if (sum - a[i] >= 0)
         {
 
-            dp[sum] = max(dp[sum], dp_target_sum(sum - a[i], a, n, flag));
-            if (dp[sum] == 1&&path[sum]==0)
+            result =  dp_target_sum(sum - a[i], a, n, flag);
+            dp[sum]=max(dp[sum],result);
+            if (result == 1&&path[sum]==0)
                 path[sum] = a[i];
         }
     }
