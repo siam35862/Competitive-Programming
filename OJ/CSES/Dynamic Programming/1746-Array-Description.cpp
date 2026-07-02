@@ -112,6 +112,7 @@ int32_t main()
         for(i=1;i<=m;i++)
         {
             ans+=dp[n-1][i];
+            ans%=M;
         }
     }
     else ans=dp[n-1][a[n-1]];
