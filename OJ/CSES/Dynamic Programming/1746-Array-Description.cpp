@@ -30,7 +30,7 @@ using namespace std;
     cout << a[i + ind] << '\n'
 
 #define maxn (int)(2e5 + 100)
-#define M 998244353
+#define M (int)1e9+7
 #define inf 1e18
 
 template <class T>
@@ -86,6 +86,7 @@ int32_t main()
                     if (j <= m && j >= 1)
                     {
                         dp[i][a[i]] += dp[i-1][j];
+                        dp[i][a[i]]%=M;
                     }
                 }
             }
@@ -98,6 +99,7 @@ int32_t main()
                         if (k >= 1 && k <= m)
                         {
                             dp[i][j] += dp[i-1][k];
+                            dp[i][j]%=M;
                         }
                     }
                 }
