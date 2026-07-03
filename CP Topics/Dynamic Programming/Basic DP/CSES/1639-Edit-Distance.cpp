@@ -10,14 +10,26 @@ using namespace std;
 #define srt(v) sort(v.begin(), v.end())
 #define rsrt(v) sort(v.rbegin(), v.rend())
 #define rev(v) reverse(v.begin(), v.end())
-#define input(v) for(auto &it:v)cin>>it
-#define inputa(a,n,ind) for(int i=0;i<n;i++)cin>>a[i+ind]
-#define output(v) for(auto &it:v)cout<<it<<" "
-#define outputa(a,n,ind) for(int i=0;i<n;i++)cout<<a[i+ind]<<" "
-#define outputl(v) for(auto &it:v)cout<<it<<'\n'
-#define outputal(a,n,ind) for(int i=0;i<n;i++)cout<<a[i+ind]<<'\n'
+#define input(v)       \
+    for (auto &it : v) \
+    cin >> it
+#define inputa(a, n, ind)       \
+    for (int i = 0; i < n; i++) \
+    cin >> a[i + ind]
+#define output(v)      \
+    for (auto &it : v) \
+    cout << it << " "
+#define outputa(a, n, ind)      \
+    for (int i = 0; i < n; i++) \
+    cout << a[i + ind] << " "
+#define outputl(v)     \
+    for (auto &it : v) \
+    cout << it << '\n'
+#define outputal(a, n, ind)     \
+    for (int i = 0; i < n; i++) \
+    cout << a[i + ind] << '\n'
 
-#define maxn (int)(2e5+100)
+#define maxn (int)(2e5 + 100)
 #define M 998244353
 #define inf 1e18
 
@@ -44,23 +56,38 @@ int32_t main()
     cin.tie(NULL);
     cout.tie(NULL);
 
-    string a,b;
-    cin>>a>>b;
-    int n=a.length(),m=b.length();
-    int dp[n+1][m+1]={};
-    int mx=0;
-    int i,j;
-    for (i = 0; i < n; i++)
+    string a, b;
+    cin >> a >> b;
+    int i, j;
+    int n = a.length(), m = b.length();
+    vector<vector<int>> dp(n + 1, vector<int>(m + 1, inf));
+    dp[0][0] = 0;
+    for (i = 0; i <= n; i++)
     {
-        for(j=0;j<m;j++)
+        dp[i][0] = i;
+    }
+    for (j = 0; j <=m; j++)
+    {
+        dp[0][j] = j;
+    }
+
+    for(i=1;i<=n;i++)
+    {
+        for(j=1;j<=m;j++)
         {
-            if(a[i]==b[j])dp[i+1][j+1]=dp[i][j]+1;
-            else dp[i+1][j+1]=max(dp[i][j+1],dp[i+1][j]);
-            mx=max(mx,dp[i+1][j+1]);
+            if(a[i-1]==b[j-1])
+            {
+                dp[i][j]=dp[i-1][j-1];
+                
+            }
+            else
+            {
+                dp[i][j]=1+min(min(dp[i-1][j],dp[i][j-1]),dp[i-1][j-1]);
+            }
         }
     }
 
-    cout<<max(n-mx,m-mx)<<endl;
-    
+    cout << dp[n][m] << endl;
+
     return 0;
 }
