@@ -55,7 +55,7 @@ int32_t main()
         else if(x==2)two++;
         else three++;
     }
-    double dp[305][305][305]={};
+    double dp[one+two+three+2][two+three+2][three+2]={};
 
   
 
