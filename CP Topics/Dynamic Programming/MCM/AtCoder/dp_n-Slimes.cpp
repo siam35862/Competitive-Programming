@@ -61,7 +61,7 @@ int32_t main()
     int a[n + 1];
     inputa(a, n, 1);
 
-    vector<vector<int>> dp(n + 1, vector<int>(n + 1, inf)), ans(n + 1, vector<int>(n + 1, inf));
+    vector<vector<int>> dp(n + 1, vector<int>(n + 1, inf)), cost(n + 1, vector<int>(n + 1, inf));
 
     int i, j;
     for (int k = 0; k < n; k++)
@@ -69,20 +69,20 @@ int32_t main()
         for (i = 1; i <= n - k; i++)
         {
             dp[i][i] = a[i];
-            ans[i][i] = 0;
+            cost[i][i] = 0;
 
             for (int j = i; j < i + k && j < n; j++)
             {
-                if (dp[i][j] + dp[j + 1][i + k] + ans[i][j] + ans[j + 1][i + k] < ans[i][i + k])
+                if (dp[i][j] + dp[j + 1][i + k] + cost[i][j] + cost[j + 1][i + k] < cost[i][i + k])
                 {
                     dp[i][i + k] = dp[i][j] + dp[j + 1][i + k];
-                    ans[i][i + k] = ans[i][j] + ans[j + 1][i + k] + dp[i][i + k];
+                    cost[i][i + k] = cost[i][j] + cost[j + 1][i + k] + dp[i][i + k];
                 }
             }
                 }
     }
 
-    cout << ans[1][n] << endl;
+    cout << cost[1][n] << endl;
 
     return 0;
 }
