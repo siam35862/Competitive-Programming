@@ -1,4 +1,3 @@
-//WA
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
@@ -61,52 +60,28 @@ int32_t main()
     cin >> n >> k;
     int a[n + 1];
     inputa(a, n, 1);
-    sort(a+1,a+n+1);
-    int dp[k + 1] = {};
-    dp[0] = 1;
 
-    int prev[k + 1] = {};
-    prev[0] = 0;
+    int dp[k + 1][k + 1] = {};
+    dp[0][0] = 1;
 
     for (int i = 1; i <= n; i++)
     {
-        for (int j = k; j >= a[i]; j--)
+        for (int j = k; j >= 0; j--)
         {
-            if (dp[j - a[i]]+1>dp[j]&&dp[j-a[i]]>0)
+            for (int l = k; l >= 0; l--)
             {
-                dp[j]=dp[j - a[i]]+1;
-                prev[j] = a[i];
+                dp[j][l] = dp[j][l] | ((l - a[i] >= 0) ? dp[j][l-a[i]] : 0) | ((j - a[i] >= 0 && l - a[i] >= 0) ? dp[j - a[i]][l - a[i]] : 0);
             }
         }
     }
-    cout<<dp[k]<<endl;
-    vector<int> v;
-    int kk = k;
-    while (prev[kk] != 0)
-    {
-        v.push_back(prev[kk]);
-        cout<<prev[kk]<<" ";
-       
-        kk -= prev[kk];
-    }
-    cout<<endl;
 
-    int dp2[k + 1] = {};
-    dp2[0] = 1;
-    for (auto coin : v)
-    {
-        for (int j = k; j >= coin; j--)
-        {
-            dp2[j] = max(dp2[j], dp2[j - coin]);
-        }
-    }
     int cnt = 0;
     for (int i = 0; i <= k; i++)
-        if (dp2[i])
+        if (dp[i][k] == 1)
             cnt++;
     cout << cnt << endl;
     for (int i = 0; i <= k; i++)
-        if (dp2[i])
+        if (dp[i][k] == 1)
             cout << i << " ";
     cout << endl;
 
