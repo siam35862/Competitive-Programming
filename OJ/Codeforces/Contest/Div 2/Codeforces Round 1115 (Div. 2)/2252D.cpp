@@ -1,4 +1,3 @@
-//TLE Yet
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -54,11 +53,10 @@ using ordered_setd = tree<T, null_type, greater<T>, rb_tree_tag,
 
 int32_t main()
 {
-    
+
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    
 
     int t = 1;
     cin >> t;
@@ -69,45 +67,29 @@ int32_t main()
 
         cin >> n;
         int a[n + 1];
-        set<pair<int, int>> st;
+        int d[n];
 
         for (i = 0; i < n; i++)
         {
             cin >> a[i];
+            if (i > 0)
+            {
+                d[i - 1] = a[i] - a[i - 1];
+            }
         }
+        int st = 0, en = 0;
         for (i = 1; i < n - 1; i++)
         {
-            if (abs(a[i - 1]) % 2 == abs(a[i + 1]) % 2)
+            if (abs(d[i]) % 2 != abs(d[i - 1]) % 2)
             {
-                if (a[i - 1] + a[i + 1] - a[i] < a[i])
-                {
-                    st.insert({a[i - 1] + a[i + 1] - a[i], i});
-                }
+                sort(d + st, d + i);
+                st = i;
             }
         }
-        while (!st.empty())
+        sort(d + st, d + n - 1);
+        for (i = 1; i < n; i++)
         {
-            auto it = *st.begin();
-            st.erase(it);
-            i = it.second;
-            int val = it.first;
-            if (i > 1)
-            {
-                st.erase({a[i - 2] + a[i] - a[i - 1], i - 1});
-                if (a[i - 2] + val - a[i - 1] < a[i - 1] && abs(a[i - 2]) % 2 == abs(val) % 2)
-                {
-                    st.insert({a[i - 2] + val - a[i - 1], i - 1});
-                }
-            }
-            if (i < n - 2)
-            {
-                st.erase({a[i + 2] + a[i] - a[i + 1], i + 1});
-                if (a[i + 2] + val - a[i + 1] < a[i + 1] && abs(a[i + 2]) % 2 == abs(val) % 2)
-                {
-                    st.insert({a[i + 2] + val - a[i + 1], i + 1});
-                }
-            }
-            a[i] = val;
+            a[i] = a[i - 1] + d[i - 1];
         }
         outputa(a, n, 0);
         cout << endl;
