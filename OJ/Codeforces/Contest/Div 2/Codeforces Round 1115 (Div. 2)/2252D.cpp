@@ -1,4 +1,4 @@
-//Not AC Yet
+//TLE Yet
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -54,9 +54,11 @@ using ordered_setd = tree<T, null_type, greater<T>, rb_tree_tag,
 
 int32_t main()
 {
+    
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
+    
 
     int t = 1;
     cin >> t;
@@ -75,7 +77,7 @@ int32_t main()
         }
         for (i = 1; i < n - 1; i++)
         {
-            if (a[i - 1] % 2 == a[i + 1] % 2)
+            if (abs(a[i - 1]) % 2 == abs(a[i + 1]) % 2)
             {
                 if (a[i - 1] + a[i + 1] - a[i] < a[i])
                 {
@@ -92,7 +94,7 @@ int32_t main()
             if (i > 1)
             {
                 st.erase({a[i - 2] + a[i] - a[i - 1], i - 1});
-                if (a[i - 2] + val - a[i - 1] < a[i - 1] && a[i - 2] % 2 == val % 2)
+                if (a[i - 2] + val - a[i - 1] < a[i - 1] && abs(a[i - 2]) % 2 == abs(val) % 2)
                 {
                     st.insert({a[i - 2] + val - a[i - 1], i - 1});
                 }
@@ -100,7 +102,7 @@ int32_t main()
             if (i < n - 2)
             {
                 st.erase({a[i + 2] + a[i] - a[i + 1], i + 1});
-                if (a[i + 2] + val - a[i + 1] < a[i + 1] && a[i + 2] % 2 == val % 2)
+                if (a[i + 2] + val - a[i + 1] < a[i + 1] && abs(a[i + 2]) % 2 == abs(val) % 2)
                 {
                     st.insert({a[i + 2] + val - a[i + 1], i + 1});
                 }
