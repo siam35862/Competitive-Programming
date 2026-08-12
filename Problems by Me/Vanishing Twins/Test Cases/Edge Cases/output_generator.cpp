@@ -6,7 +6,7 @@ using namespace __gnu_pbds;
 using namespace std;
 
 #define int long long
-// #define endl '\n'
+//#define endl '\n'
 #define srt(v) sort(v.begin(), v.end())
 #define rsrt(v) sort(v.rbegin(), v.rend())
 #define rev(v) reverse(v.begin(), v.end())
@@ -30,7 +30,7 @@ using namespace std;
     cout << a[i + ind] << '\n'
 
 #define maxn (int)(2e5 + 100)
-#define M (int)(1e9+7)
+#define M 998244353
 #define inf 1e18
 
 template <class T>
@@ -60,28 +60,28 @@ int32_t main()
         string in = to_string(ind) + ".in";
         string out = to_string(ind) + ".out";
 
+  
         freopen(in.c_str(), "r", stdin);
         freopen(out.c_str(), "w", stdout);
 
         int t = 1;
         if (!(cin >> t)) break;
+
         for (int cs = 1; cs <= t; cs++)
         {
-            // cout << "Case " << cs << ": ";
-            int n, m, i, j, k;
+            int n;
             cin >> n;
-            int a[n + 1];
+            vector<int> a(n);
             set<int> st;
             int ans = 0;
-            int presum = 0;
-            for (i = 0; i < n; i++)
+
+            for (int i = 0; i < n; i++)
             {
                 cin >> a[i];
                 if (st.find(a[i]) == st.end())
                 {
-                    ans = (ans + (presum * a[i]) % M) % M;
+                    ans += a[i];
                     st.insert(a[i]);
-                    presum = (presum + a[i]) % M;
                 }
                 cout << ans << " ";
             }

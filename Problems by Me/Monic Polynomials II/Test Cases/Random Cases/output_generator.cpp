@@ -30,7 +30,7 @@ using namespace std;
     cout << a[i + ind] << '\n'
 
 #define maxn (int)(2e5 + 100)
-#define M 998244353
+#define M (int)(1e9+7)
 #define inf 1e18
 
 template <class T>
@@ -82,10 +82,11 @@ int32_t main()
                     ans = (ans + (presum * a[i]) % M) % M;
                     st.insert(a[i]);
                     presum = (presum + a[i]) % M;
-                }
-                cout << ans << " ";
+                }   
+                cout<<ans<<" ";        
             }
-            cout << endl;
+            cout<<endl;
+      
         }
 
         // Reset stream state flags before opening next file

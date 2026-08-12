@@ -5,32 +5,20 @@
 using namespace __gnu_pbds;
 using namespace std;
 
-#define int long long
+// #define int long long
 #define endl '\n'
 #define srt(v) sort(v.begin(), v.end())
 #define rsrt(v) sort(v.rbegin(), v.rend())
 #define rev(v) reverse(v.begin(), v.end())
-#define input(v)       \
-    for (auto &it : v) \
-    cin >> it
-#define inputa(a, n, ind)       \
-    for (int i = 0; i < n; i++) \
-    cin >> a[i + ind]
-#define output(v)      \
-    for (auto &it : v) \
-    cout << it << " "
-#define outputa(a, n, ind)      \
-    for (int i = 0; i < n; i++) \
-    cout << a[i + ind] << " "
-#define outputl(v)     \
-    for (auto &it : v) \
-    cout << it << '\n'
-#define outputal(a, n, ind)     \
-    for (int i = 0; i < n; i++) \
-    cout << a[i + ind] << '\n'
+#define input(v) for(auto &it:v)cin>>it
+#define inputa(a,n,ind) for(int i=0;i<n;i++)cin>>a[i+ind]
+#define output(v) for(auto &it:v)cout<<it<<" "
+#define outputa(a,n,ind) for(int i=0;i<n;i++)cout<<a[i+ind]<<" "
+#define outputl(v) for(auto &it:v)cout<<it<<'\n'
+#define outputal(a,n,ind) for(int i=0;i<n;i++)cout<<a[i+ind]<<'\n'
 
-#define maxn (int)(2e5 + 100)
-#define M 1000000007
+#define maxn (int)(2e5+100)
+#define M 998244353
 #define inf 1e18
 
 template <class T>
@@ -55,32 +43,31 @@ int32_t main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    freopen("in.in", "r", stdin);
-    freopen("out.out", "w", stdout);
+
     int t = 1;
     cin >> t;
     for (int cs = 1; cs <= t; cs++)
     {
-        // cout << "Case " << cs << ": ";
+        //cout << "Case " << cs << ": ";
         int n, m, i, j, k;
         cin >> n;
         int a[n + 1];
-        set<int> st;
-        int ans = 0;
-        int presum = 0;
+        set<int>st;
+        long long ans=0;
         for (i = 0; i < n; i++)
         {
             cin >> a[i];
-            if (st.find(a[i]) == st.end())
+            if(st.find(a[i])==st.end())
             {
-                ans = (ans + (presum * a[i]) % M) % M;
+                ans+=a[i];
                 st.insert(a[i]);
-                presum = (presum + a[i]) % M;
             }
-            cout << ans << " ";
-        }
-        cout << endl;
+            cout<<ans<<" ";
+            
+        }   
+        cout<<endl;
     }
 
+    
     return 0;
 }
