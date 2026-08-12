@@ -43,8 +43,8 @@ int32_t main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    freopen("8.in", "r", stdin);
-    freopen("8.out", "w", stdout);
+    freopen("in.in", "r", stdin);
+    freopen("out.out", "w", stdout);
 
     int t = 1;
     cin >> t;

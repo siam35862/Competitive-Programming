@@ -67,7 +67,7 @@ for case_idx in range(T):
     lines.append(str(N_PER_CASE))
     lines.append(" ".join(map(str, vals)))
 
-with open("8.in","w") as f:
+with open("in.in","w") as f:
     f.write("\n".join(lines) + "\n")
 
 print("done, t =", T, "n per case =", N_PER_CASE)
