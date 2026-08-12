@@ -1,5 +1,5 @@
-t = 2
-n = 100000
+t = 3
+n = 30000
 
 with open("8.in", "w") as f:
     f.write(f"{t}\n")
