@@ -64,7 +64,7 @@ int32_t main()
         freopen(out.c_str(), "w", stdout);
 
         int t = 1;
-        cin >> t;
+        if (!(cin >> t)) break;
         for (int cs = 1; cs <= t; cs++)
         {
             // cout << "Case " << cs << ": ";

@@ -55,7 +55,7 @@ int32_t main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    for (int ind = 1; ind <= 20; ind++)
+    for (int ind = 1; ind <= 1; ind++)
     {
         string in = to_string(ind) + ".in";
         string out = to_string(ind) + ".out";
@@ -64,7 +64,7 @@ int32_t main()
         freopen(out.c_str(), "w", stdout);
 
         int t = 1;
-        cin >> t;
+        if (!(cin >> t)) break;
         for (int cs = 1; cs <= t; cs++)
         {
             // cout << "Case " << cs << ": ";
