@@ -121,7 +121,7 @@ int32_t main()
                 }
             }
         }
-        if (flag)
+        if (flag&&aa>0&&b>0)
             cout << aa << " " << x << " " << b << " " << y << endl;
         else
             cout << -1 << endl;
