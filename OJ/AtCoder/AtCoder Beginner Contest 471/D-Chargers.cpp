@@ -45,6 +45,8 @@ int32_t main()
     cin.tie(NULL);
     cout.tie(NULL);
 
+<<<<<<< HEAD
+=======
     int q,v;
     cin>>q>>v;
     priority_queue<int>pq;
@@ -75,6 +77,7 @@ int32_t main()
     }
     
 
+>>>>>>> 4e8cbe2ca856c14642b031ace175883db1ba1dbb
     
     return 0;
 }
