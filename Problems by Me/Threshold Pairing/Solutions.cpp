@@ -53,14 +53,11 @@ using ordered_setd = tree<T, null_type, greater<T>, rb_tree_tag,
 
 vector<vector<int>> divisors(maxn + 1);
 
-
 int32_t main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-
-  
 
     int t = 1;
     cin >> t;
@@ -113,7 +110,7 @@ int32_t main()
         }
         if (v2 > 0 && v3 > 0)
         {
-            cout << max(v1 + v2, v1 + v3)<<endl;
+            cout << max(v1 + v2, v1 + v3) << endl;
         }
         else if (v2 > 0)
         {

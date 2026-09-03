@@ -60,7 +60,7 @@ int32_t main()
     cout.tie(NULL);
 
     int tt;
-    for (tt = 1; tt <= 35; tt++)
+    for (tt = 1; tt <= 41; tt++)
     {
         string fin=to_string(tt)+".in";
         string fout=to_string(tt)+".out";
